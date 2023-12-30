@@ -1,0 +1,10 @@
+1. Display
+2. append(X)
+3. insert(index, X)
+4. delete(index)
+5. search(X)
+6. get(index)
+7. set(index)
+8. max() / min()
+9. reverse()
+10. shift() / rotate()
