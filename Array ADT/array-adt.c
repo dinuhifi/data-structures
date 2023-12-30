@@ -17,6 +17,18 @@ int check_underflow(struct Array * arr){
     else return 1;
 }
 
+int is_sorted(struct Array * arr){
+    if(check_underflow(arr)==1){
+        for(int i=0; i<arr->length-1; i++){
+            if(arr->A[i] > arr->A[i+1]) return 0;
+        }
+        return 1;
+    }
+    else {
+        return -1;
+    }
+}
+
 void display(struct Array * arr){
     printf("The elements are: ");
     for (int i = 0; i < arr->length; i++) printf("%d ", arr->A[i]);
@@ -72,17 +84,20 @@ void linear_search(struct Array * arr, int key){
 
 void binary_search(struct Array * arr, int key){
     if(check_underflow(arr)==1){
-        int l=0, h=arr->length-1, mid;
-        while(l<=h){
-            mid = (l+h)/2;
-            if(arr->A[mid] == key){
-                printf("element found at index %d\n", mid);
-                return;
+        if(is_sorted(arr)==1){
+            int l=0, h=arr->length-1, mid;
+            while(l<=h){
+                mid = (l+h)/2;
+                if(arr->A[mid] == key){
+                    printf("element found at index %d\n", mid);
+                    return;
+                }
+                else if(arr->A[mid] < key) l = mid+1;
+                else h = mid-1;
             }
-            else if(arr->A[mid] < key) l = mid+1;
-            else h = mid-1;
+            printf("Element not found\n");
         }
-        printf("Element not found\n");
+        else printf("Array is not sorted\n");
     }
     else printf("Array is empty\n");
 }
@@ -135,6 +150,75 @@ void avg(struct Array * arr){
     }
     else printf("Array is empty\n");
 }
+
+void reverse(struct Array * arr){
+    if(check_underflow(arr)==1){
+        int temp;
+        for(int i=0,j=arr->length-1; i<j; i++,j--){
+            temp = arr->A[i];
+            arr->A[i] = arr->A[j];
+            arr->A[j] = temp;
+        }
+    }
+    else printf("Array is empty\n");
+    display(arr);
+} 
+
+void left_shift(struct Array * arr){
+    if(check_underflow(arr)==1){
+        for(int i=0;i<arr->length-1;i++) arr->A[i] = arr->A[i+1];
+        arr->A[arr->length-1] = 0; 
+    }
+    else printf("Array is empty\n");
+    display(arr);
+}
+
+void right_shift(struct Array * arr){
+    if(check_underflow(arr)==1){
+        for(int i=arr->length-1;i>0;i--) arr->A[i] = arr->A[i-1];
+        arr->A[0] = 0; 
+    }
+    else printf("Array is empty\n");
+    display(arr);
+}
+
+void left_rotation(struct Array * arr){
+    if(check_underflow(arr)==1){
+        int temp = arr->A[0];
+        for(int i=0; i<arr->length-1; i++) arr->A[i] = arr->A[i+1];
+        arr->A[arr->length-1] = temp;
+    }
+    else printf("Array is empty\n");
+    display(arr);
+}
+
+void right_rotation(struct Array * arr){
+    if(check_underflow(arr)==1){
+        int temp = arr->A[arr->length-1];
+        for(int i=arr->length-1; i>0; i--) arr->A[i] = arr->A[i-1];
+        arr->A[0] = temp;
+    }
+    else printf("Array is empty\n");
+    display(arr);
+}
+
+void sorted_insert(struct Array * arr, int x){
+    if(check_overflow(arr)==1){
+        if(is_sorted(arr)==1){
+            int i = arr->length-1;
+            while(arr->A[i] > x){
+                arr->A[i+1] = arr->A[i];
+                i--;
+            }
+            arr->A[i+1] = x;
+            arr->length++;
+        }
+        else printf("Array is not sorted\n");
+    }
+    else printf("Array is full\n");
+    display(arr);
+}
+
 
 int main() {
     struct Array arr;
