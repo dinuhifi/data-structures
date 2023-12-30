@@ -17,7 +17,7 @@ int check_underflow(struct Array * arr){
     else return 1;
 }
 
-void Display(struct Array * arr){
+void display(struct Array * arr){
     printf("The elements are: ");
     for (int i = 0; i < arr->length; i++) printf("%d ", arr->A[i]);
     printf("\n");
@@ -29,7 +29,7 @@ void append(struct Array * arr, int x){
         arr->length++;
     }
     else printf("Array is full\n");
-    Display(arr);
+    display(arr);
 }
 
 void insert(struct Array * arr, int index, int x){
@@ -42,7 +42,19 @@ void insert(struct Array * arr, int index, int x){
         else printf("Invalid index\n");
     }
     else printf("Array is full\n");
-    Display(arr);
+    display(arr);
+}
+
+void delete(struct Array * arr, int index){
+    if(check_underflow(arr) == 1){
+        if(index < arr->length && index >=0){
+            for(int i=index; i<arr->length-1; i++) arr->A[i] = arr->A[i+1];
+            arr->length--;
+        }
+        else printf("Invalid index\n");
+    }
+    else printf("Array is empty\n");
+    display(arr);
 }
 
 int main() {
@@ -60,9 +72,11 @@ int main() {
     for (int i = 0; i < n; i++) scanf("%d", &arr.A[i]);
     arr.length = n;
     
-    Display(&arr);
+    display(&arr);
     append(&arr, 10);
     insert(&arr, 3, 20);
+    delete(&arr, 1);
+    printf("Length of array: %d\n", arr.length);
 
     return 0;
 }
