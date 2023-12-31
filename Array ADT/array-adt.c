@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 struct Array {
-    int A[100];
+    int *A;
     int size;
     int length;
 };
@@ -235,20 +235,14 @@ struct Array * merge(struct Array * arr1, struct Array * arr2){
 
 int main() {
     struct Array arr1;
-    int n;
     printf("Enter size of Array: ");
     scanf("%d", &arr1.size);
+    arr1.A = (int *)malloc(arr1.size*sizeof(int));
     arr1.length = 0;
 
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
-
-    printf("Enter the elements: ");
-    for (int i = 0; i < n; i++) scanf("%d", &arr1.A[i]);
-    arr1.length = n;
-    
-    display(arr1);
-    
+    append(&arr1, 1);
+    append(&arr1, 2);
+    append(&arr1, 3);
 
     return 0;
 }
