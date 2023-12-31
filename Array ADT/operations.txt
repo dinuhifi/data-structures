@@ -29,3 +29,6 @@
 
 1. Find duplicate elements in an Sorted Array (Bruteforce/Hashtable).
 2. Find duplicate elements in an Unsorted Array (Bruteforce/Hashtable).
+
+
+1. Solved Two-Sum Problem in Sorted and Unsorted Arrays using C/C++. (Bruteforce/Hashtable/Two-Pointer techniques)
