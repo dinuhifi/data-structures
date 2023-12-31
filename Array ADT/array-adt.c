@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 struct Array {
-    int *A;
+    int A[100];
     int size;
     int length;
 };
@@ -29,9 +29,9 @@ int is_sorted(struct Array * arr){
     }
 }
 
-void display(struct Array * arr){
+void display(struct Array arr){
     printf("The elements are: ");
-    for (int i = 0; i < arr->length; i++) printf("%d ", arr->A[i]);
+    for (int i = 0; i < arr.length; i++) printf("%d ", arr.A[i]);
     printf("\n");
 }
 
@@ -41,7 +41,7 @@ void append(struct Array * arr, int x){
         arr->length++;
     }
     else printf("Array is full\n");
-    display(arr);
+    display(*arr);
 }
 
 void insert(struct Array * arr, int index, int x){
@@ -54,7 +54,7 @@ void insert(struct Array * arr, int index, int x){
         else printf("Invalid index\n");
     }
     else printf("Array is full\n");
-    display(arr);
+    display(*arr);
 }
 
 void delete(struct Array * arr, int index){
@@ -66,7 +66,7 @@ void delete(struct Array * arr, int index){
         else printf("Invalid index\n");
     }
     else printf("Array is empty\n");
-    display(arr);
+    display(*arr);
 }
 
 void linear_search(struct Array * arr, int key){
@@ -116,7 +116,7 @@ void set(struct Array * arr, int index, int x){
         else printf("Invalid index\n");
     }
     else printf("Array is empty\n");
-    display(arr);
+    display(*arr);
 }
 
 void max_min(struct Array * arr){
@@ -161,7 +161,7 @@ void reverse(struct Array * arr){
         }
     }
     else printf("Array is empty\n");
-    display(arr);
+    display(*arr);
 } 
 
 void left_shift(struct Array * arr){
@@ -170,7 +170,7 @@ void left_shift(struct Array * arr){
         arr->A[arr->length-1] = 0; 
     }
     else printf("Array is empty\n");
-    display(arr);
+    display(*arr);
 }
 
 void right_shift(struct Array * arr){
@@ -179,7 +179,7 @@ void right_shift(struct Array * arr){
         arr->A[0] = 0; 
     }
     else printf("Array is empty\n");
-    display(arr);
+    display(*arr);
 }
 
 void left_rotation(struct Array * arr){
@@ -189,7 +189,7 @@ void left_rotation(struct Array * arr){
         arr->A[arr->length-1] = temp;
     }
     else printf("Array is empty\n");
-    display(arr);
+    display(*arr);
 }
 
 void right_rotation(struct Array * arr){
@@ -199,7 +199,7 @@ void right_rotation(struct Array * arr){
         arr->A[0] = temp;
     }
     else printf("Array is empty\n");
-    display(arr);
+    display(*arr);
 }
 
 void sorted_insert(struct Array * arr, int x){
@@ -216,26 +216,39 @@ void sorted_insert(struct Array * arr, int x){
         else printf("Array is not sorted\n");
     }
     else printf("Array is full\n");
-    display(arr);
+    display(*arr);
 }
 
+struct Array * merge(struct Array * arr1, struct Array * arr2){
+    struct Array * arr3=(struct Array *)malloc(sizeof(struct Array));
+    int i,j,k=0;
+    while(i<arr1->length && j<arr2->length){
+        if(arr1->A[i] < arr2->A[j]){ arr3->A[k] = arr1->A[i]; k++; i++;}
+        else {arr3->A[k] = arr2->A[j]; k++; j++;}
+    }
+    for(;i<arr1->length;i++) arr3->A[k++] = arr1->A[i];
+    for(;j<arr2->length;j++) arr3->A[k++] = arr2->A[j];
+    arr3->length = arr1->length + arr2->length;
+    arr3->size = arr1->size + arr2->size;
+    return arr3;
+}
 
 int main() {
-    struct Array arr;
+    struct Array arr1;
     int n;
     printf("Enter size of Array: ");
-    scanf("%d", &arr.size);
-    arr.A = (int *)malloc(arr.size * sizeof(int));
-    arr.length = 0;
+    scanf("%d", &arr1.size);
+    arr1.length = 0;
 
     printf("Enter number of elements: ");
     scanf("%d", &n);
 
     printf("Enter the elements: ");
-    for (int i = 0; i < n; i++) scanf("%d", &arr.A[i]);
-    arr.length = n;
+    for (int i = 0; i < n; i++) scanf("%d", &arr1.A[i]);
+    arr1.length = n;
     
-    display(&arr);
+    display(arr1);
+    
 
     return 0;
 }
