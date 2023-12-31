@@ -25,3 +25,7 @@
 1. Find missing element in an Sorted Array
 2. Find multiple missing elements in an Sorted Array
 3. Find missing elements in both Sorted and Unsorted Array using Hashing Technique.
+
+
+1. Find duplicate elements in an Sorted Array (Bruteforce/Hashtable).
+2. Find duplicate elements in an Unsorted Array (Bruteforce/Hashtable).
